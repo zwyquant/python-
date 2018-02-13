@@ -1,33 +1,31 @@
-#获得指定日期开始后一个月的日期.
+from datetime import datetime, timedelta
 
-from datetime import datetime,date,timedelta
-import time
-import calendar
+weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-def get_month_range(start_date=None): 
+def get_previous_byday(dayname, start_date=None):
     if start_date is None:
-        start_date=date.today().replace(day=1)
-        print(start_date,type(start_date))
-    _,days_in_month = calendar.monthrange(start_date.year,start_date.month)
-    end_date = start_date + timedelta(days=days_in_month)
-
-    return (start_date,end_date)
+        start_date = datetime.today()
+    day_num = start_date.weekday()
+    day_num_target = weekdays.index(dayname)
+    days_ago = (7 + day_num - day_num_target) % 7 
+    if days_ago == 0:
+        days_ago = 7
+    target_date = start_date - timedelta(days=days_ago)
+    return target_date
 
 
 def main():
-    a_day = timedelta(days=1)
+    today = datetime.today()
+    a = get_previous_byday('Monday') #求上一个星期一对应的日期.
+    t=datetime.strptime(str(a)[0:10], "%Y-%m-%d").date()
 
-    dtstr = '2018-01-08'
-    t=datetime.strptime(dtstr, "%Y-%m-%d").date()
-  
-    first_day,last_day=get_month_range(t)
+    b = get_previous_byday('Monday', datetime(2017,12,28)) #当前日期是2017年12.28日,求上一个星期一对应的日期
+    t2 = datetime.strptime(str(b)[0:10], "%Y-%m-%d").date()
 
-    datelist = []
-    while first_day < last_day:
-        datelist.append(str(first_day))
-        first_day += a_day
-    print(datelist)
-
+    print (t)
+    print (t2)
+ 
 
 if __name__ =='__main__':
     main()
+
