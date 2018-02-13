@@ -1,3 +1,5 @@
+#获得指定日期开始后一个月的日期.
+
 from datetime import datetime,date,timedelta
 import time
 import calendar
