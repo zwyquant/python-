@@ -1,4 +1,5 @@
 from datetime import datetime,timedelta
+from dateutil.relativedelta import relativedelta
 
 def DateOperation(): 
     a = datetime(2018,2,8)
@@ -12,6 +13,8 @@ def DateOperation():
   
     print (c,d,e, sep='\n')
 
+    f = a + relativedelta(months=+15) #这个库解决月份运算的问题.
+    print(f)
 
 
 def main():
@@ -20,3 +23,4 @@ def main():
 
 if __name__ =='__main__':
     main()
+
